@@ -92,7 +92,7 @@
     }
   }
   &_link {
-    &:hover {
+    &:hover,.active {
       color: $blue;
     }
   }

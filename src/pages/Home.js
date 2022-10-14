@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createRecord, setSelectedRecord } from '../slices/records';
+import {
+  createRecord,
+  removeRecord,
+  setSelectedRecord,
+} from '../slices/records';
 import { recordValidation } from '../helpers/formValidationSchemas';
 import Layout from '../components/Layout';
 import DataTable from 'react-data-table-component';
@@ -37,8 +41,6 @@ const Home = () => {
   const { data, selectedRecord } = useSelector((state) => state.records);
   const { data: technologies } = useSelector((state) => state.technologies);
 
-  console.log(technologies);
-
   const columns = [
     {
       name: 'Id',
@@ -70,7 +72,7 @@ const Home = () => {
         <div className="flex">
           <button
             onClick={() => {
-              showModalAndSetModalType('createOrUpdate');
+              showModalAndSetModalType('updateRecord');
               dispatch(setSelectedRecord(row.id));
             }}
             className="mr-1 px-3 py-2 rounded-full bg-green-100 flex items-center"
@@ -79,7 +81,10 @@ const Home = () => {
             Edit
           </button>
           <button
-            onClick={() => showModalAndSetModalType('remove')}
+            onClick={() => {
+              showModalAndSetModalType('remove');
+              dispatch(setSelectedRecord(row.id));
+            }}
             className="px-3 py-2 rounded-full bg-red-50 flex items-center"
           >
             <AiFillDelete />
@@ -100,7 +105,8 @@ const Home = () => {
         overlayClassName="myoverlay"
         closeTimeoutMS={500}
       >
-        {modalType === 'createOrUpdate' && modalType !== '' ? (
+        {(modalType === 'createRecord' || modalType === 'updateRecord') &&
+        modalType !== '' ? (
           <Formik
             initialValues={{
               name: selectedRecord ? selectedRecord.name : '',
@@ -113,16 +119,30 @@ const Home = () => {
             }}
             validationSchema={recordValidation}
             onSubmit={(values, { setSubmitting }) => {
+              setSubmitting(false);
+              if (modalType === 'createRecord') {
+                dispatch(createRecord(values));
+                closeModal();
+              }
+              if (modalType === 'updateRecord') {
+                //dispatch(createRecord(values));
+              }
               console.log(values);
-              dispatch(createRecord(values));
             }}
           >
             {({ isSubmitting }) => (
               <Form>
                 <div className="mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Name
+                  </label>
                   <Field
                     type="text"
                     name="name"
+                    id="name"
                     placeholder="Name"
                     className="block w-100 border border-gray-200 flex-1 rounded-lg p-2 focus:ring-2 focus:ring-slate-300 outline-0"
                   />
@@ -133,9 +153,16 @@ const Home = () => {
                   />
                 </div>
                 <div className="mb-2">
+                  <label
+                    htmlFor="description"
+                    className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Description
+                  </label>
                   <Field
                     type="text"
                     name="description"
+                    id="description"
                     placeholder="Description"
                     className="block w-100 border border-gray-200 flex-1 rounded-lg p-2 focus:ring-2 focus:ring-slate-300 outline-0"
                   />
@@ -147,9 +174,16 @@ const Home = () => {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <div className="mb-2 flex-1">
+                    <label
+                      htmlFor="startDate"
+                      className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Başlangıç Tarihi
+                    </label>
                     <Field
                       type="date"
                       name="start_date"
+                      id="startDate"
                       placeholder="Description"
                       className="block w-100 border border-gray-200 flex-1 rounded-lg p-2 focus:ring-2 focus:ring-slate-300 outline-0"
                     />
@@ -160,9 +194,16 @@ const Home = () => {
                     />
                   </div>
                   <div className="mb-2 flex-1">
+                    <label
+                      htmlFor="endDate"
+                      className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    >
+                      Bitiş Tarihi
+                    </label>
                     <Field
                       type="date"
                       name="end_date"
+                      id="endDate"
                       placeholder="Description"
                       className="block w-100 border border-gray-200 flex-1 rounded-lg p-2 focus:ring-2 focus:ring-slate-300 outline-0"
                     />
@@ -211,17 +252,27 @@ const Home = () => {
         ) : (
           modalType === 'remove' &&
           modalType !== '' && (
-            <p>
-              Voluptate labore amet cupidatat in excepteur anim sit proident
-              officia in occaecat.
-            </p>
+            <div>
+              <p className="font-2xl mb-4 font-medium">Are you sure?</p>
+              <div className="flex justify-end">
+                <button
+                  className="bg-slate-700 text-white rounded-full p-5 py-2"
+                  onClick={() => {
+                    dispatch(removeRecord(selectedRecord.id));
+                    closeModal();
+                  }}
+                >
+                  Onayla
+                </button>
+              </div>
+            </div>
           )
         )}
       </Modal>
 
       <div className="flex justify-end py-4">
         <button
-          onClick={() => showModalAndSetModalType('createOrUpdate')}
+          onClick={() => showModalAndSetModalType('createRecord')}
           className="bg-teal-200 text-teal-700 py-2 px-3 rounded-full"
         >
           Yeni Kayıt Oluştur

@@ -22,7 +22,7 @@ const accordionTree = [
 `,
     children: [
       {
-        title: 'Compose',
+        title: 'Authenticator',
         active: true,
       },
       {
@@ -85,7 +85,7 @@ const accordionTree = [
 const hasChildren = (item) => ('children' in item ? true : false);
 
 const Layout = ({ children }) => {
-  const [activeInd, setActiveInd] = useState('');
+  const [activeInd, setActiveInd] = useState(0);
   const [leftMenuIsClosed, setLeftMenuIsClosed] = useState(false);
   const { authUser } = useSelector((state) => state.auth);
 
@@ -112,7 +112,7 @@ const Layout = ({ children }) => {
                   className={classNames({
                     'accordion-btn': true,
                     'has-child': hasChildren(tree),
-                    opened: activeInd === index,
+                    opened: activeInd === index ,
                   })}
                   onClick={() => {
                     setActiveInd(activeInd === index ? '' : index);

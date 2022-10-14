@@ -23,20 +23,21 @@ const recordSlice = createSlice({
 
     removeRecord: (state, action) => {
       const recordId = action.payload;
-      console.log(current.state.data.find());
+      const filteredRecords = current(state.data).filter(
+        (record) => record.id !== recordId,
+      );
+      state.data = filteredRecords;
     },
 
     createRecord: (state, action) => {
       const getLastRecord = current(state.data[state.data.length - 1]);
       const data = { ...action.payload, id: +getLastRecord.id + 1 };
-      console.log('act.payload', data);
-      current(state.data.push(data));
-
-      console.log('last state', current(state.data));
+      state.data.push(data);
     },
   },
 });
 
-export const { setSelectedRecord, createRecord } = recordSlice.actions;
+export const { setSelectedRecord, createRecord, removeRecord } =
+  recordSlice.actions;
 
 export default recordSlice.reducer;

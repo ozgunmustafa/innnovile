@@ -34,6 +34,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               <div className="py-4 ">
                 <div className="mb-2">
+                  
                   <TextField
                     name="email"
                     type="email"
@@ -55,6 +56,7 @@ const Login = () => {
                   <select
                     className="w-full text-slate-800 p-2 mb-2 focus:ring-2 focus:ring-slate-300 outline-0 rounded-lg shadow-md"
                     name="domainType"
+                    defaultValue=''
                     value={values.domainType}
                     onChange={handleChange}
                     onBlur={handleBlur}
