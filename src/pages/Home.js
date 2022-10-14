@@ -75,7 +75,7 @@ const Home = () => {
               showModalAndSetModalType('updateRecord');
               dispatch(setSelectedRecord(row.id));
             }}
-            className="mr-1 px-3 py-2 rounded-full bg-green-100 flex items-center"
+            className="mr-1 px-3 py-2 rounded-full bg-green-200 text-green-800  flex items-center"
           >
             <AiFillEdit />
             Edit
@@ -85,7 +85,7 @@ const Home = () => {
               showModalAndSetModalType('remove');
               dispatch(setSelectedRecord(row.id));
             }}
-            className="px-3 py-2 rounded-full bg-red-50 flex items-center"
+            className="px-3 py-2 rounded-full bg-red-100  text-red-800 flex items-center"
           >
             <AiFillDelete />
             Delete
@@ -273,14 +273,13 @@ const Home = () => {
       <div className="flex justify-end py-4">
         <button
           onClick={() => showModalAndSetModalType('createRecord')}
-          className="bg-teal-200 text-teal-700 py-2 px-3 rounded-full"
+          className="bg-teal-400 text-teal-700 py-2 px-3 rounded-full"
         >
           Yeni Kayıt Oluştur
         </button>
       </div>
 
       <div>
-        <button onClick={() => dispatch(createRecord())}>Get Last</button>
         <DataTable
           columns={columns}
           data={data}
