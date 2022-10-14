@@ -1,0 +1,58 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+a {
+  all: unset;
+}
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: #f5f7f8;
+}
+
+.d-flex {
+  display: flex;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.align-items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+.mb-5 {
+  margin-bottom: 1.5rem !important;
+}
+.ml-1 {
+  margin-left: 0.35rem !important;
+}
+.ml-3 {
+  margin-left: 1rem !important;
+}
+.text-white {
+  color: white;
+}
+.text-muted {
+  color: #b5b5b5;
+}
+.w-100 {
+  width: 100%;
+}
+
+.bg-brushed-alum {
+  background: url('https://www.transparenttextures.com/patterns/brushed-alum-dark.png');
+}
+
+//variables
+
+$red: #fb6450;
+$gray: #acacac;
+$green: #3ac183;
+$yellow: #f7bf38;
+$blue: #49a6b7;

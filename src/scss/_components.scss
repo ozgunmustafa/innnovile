@@ -1,0 +1,312 @@
+.brand-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  &_item {
+    padding: 0.3rem 0.3rem 0.3rem 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    &__img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 1/1;
+      padding: 0.5rem;
+      border-radius: 5px;
+      img {
+        width: 100%;
+      }
+    }
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 40px;
+      margin-right: 5px;
+      border-radius: 0 8px 8px 0;
+      background-color: transparent;
+    }
+
+    &.active {
+      .brand-list_item__img {
+        background-color: white;
+      }
+      &::before {
+        background-color: $red;
+      }
+    }
+  }
+}
+
+.accordion-btn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  color: white;
+  position: relative;
+  width: 100%;
+  text-transform: uppercase;
+  padding: 0.75rem 1rem 0.75rem 0.75rem;
+  &_icon {
+    display: flex;
+    margin-right: 7px;
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &.has-child {
+    &::after {
+      content: '+';
+    }
+  }
+
+  &.opened {
+    background-color: $blue;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      left: 1rem;
+      bottom: -5px;
+      background-color: $blue;
+      transform: rotate(45deg);
+    }
+    &::after {
+      content: '-';
+    }
+  }
+  &_link {
+    &:hover {
+      color: $blue;
+    }
+  }
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+
+  &_show {
+    max-height: unset;
+  }
+
+  &_menu {
+    padding: 0.5rem 1.1rem;
+    color: white;
+    list-style-type: none;
+    li {
+      a {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 0;
+        &::before {
+          content: '';
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: currentColor;
+          margin-right: 10px;
+        }
+      }
+      &.active,
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}
+.left-menu-btn {
+  width: 45px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.user-image {
+  border-radius: 50%;
+  width: 45px;
+  aspect-ratio: 1/1;
+}
+
+.status-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  li {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+
+    &::before {
+      content: '';
+      margin-right: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    &.published {
+      &::before {
+        background-color: $gray;
+      }
+    }
+    &.scheduled {
+      &::before {
+        background-color: $green;
+      }
+    }
+    &.need-aproval {
+      &::before {
+        background-color: $yellow;
+      }
+    }
+    &.error {
+      &::before {
+        background-color: $red;
+      }
+    }
+    &.note {
+      &::before {
+        background-color: $blue;
+      }
+    }
+  }
+}
+.post-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.post-card {
+  display: flex;
+  border: 1px solid #efefef;
+  border-radius: 7px;
+  &_left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-basis: 5%;
+    padding: 0.5rem;
+    border-radius: 7px 0 0 7px;
+  }
+  &_right {
+    flex-basis: 95%;
+    padding: 1.2rem 1rem;
+  }
+
+  &_status {
+    &.published {
+      background-color: $gray;
+    }
+    &.scheduled {
+      background-color: $green;
+    }
+    &.need-aproval {
+      background-color: $blue;
+    }
+    &.error {
+      background-color: $red;
+    }
+    &.publishing {
+      background-color: $yellow;
+    }
+  }
+}
+
+.icon-btn {
+  all: unset;
+  box-sizing: border-box;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.post-card-img {
+  width: 100%;
+  aspect-ratio: 16/8;
+  object-fit: cover;
+  object-position: top;
+}
+
+.mymodal {
+  position: fixed;
+
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  min-width: 400px;
+  max-width: 600px;
+}
+
+.myoverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 99;
+}
+.ReactModal__Content {
+  transform: translateY(-150px);
+  transition: 0.15s all ease-in-out;
+
+  &--after-open {
+    transform: translateY(0px);
+  }
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .post-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .post-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
